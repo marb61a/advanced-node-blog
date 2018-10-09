@@ -32,4 +32,29 @@ class CustomPage {
     await this.page.goto('http://localhost:3000/blogs');
     await this.page.waitFor('a[href="/auth/logout"]');
   }
+
+  async getContentsOf(selector) {
+    return this.page.$eval(selector, el => el.innerHTML);
+  }
+
+  get(path) {
+    return this.page.evaluate(_path => {
+      return fetch(_path, {
+        method : 'GET',
+        credentials : 'same-origin',
+        headers: {
+          'Content-Type' : 'application/json'
+        }
+      })
+      .then(res => res.json())
+    }, path)
+  }
+
+  post(path, data) {
+    return this.page.evaluate(
+      
+    )
+  }
 }
+
+module.exports = CustomPage;
